@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row hidden-sm hidden-xs">
+            <div class="col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+                <p class="text-center" style="padding-top: 30px;">
+                    <img src="/static/images/ttk-jet.gif"/>
+                </p>
+            </div>
+        </div>
+        <div class="row hidden-md hidden-lg">
+            <div class="col-xs-12 col-sm-12">
+                <p style="padding-top: 10px;">
+                    <img src="/static/images/ttk-logo.gif"/>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+                <h1>Спасибо за ответ!</h1>
+
+                <p class="lead">
+                    Благодарим Вас за ответ. Доступ к сети Интернет будет автоматически восстановлен в течении трех
+                    минут. Приносим извинения за доставленные неудобства.
+                </p>
+                {% if pppoe %}
+                    <p class="lead">
+                        Так же для восстановления доступа Вы можете перезагрузить ваш маршрутизатор или вновь подключить
+                        PPPoE-соединение.
+                    </p>
+                {% endif %}
+                {% if code == '1' %}
+                    <p class="lead">
+                        <strong>&laquo;Максимальное ускорение&raquo; будет активировано для Вас в течении суток.</strong>
+                    </p>
+                {% elif code == '2' %}
+
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}

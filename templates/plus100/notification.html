@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row hidden-sm hidden-xs">
+            <div class="col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+                <p class="text-center" style="padding-top: 30px;">
+                    <img src="/static/images/ttk-jet.gif"/>
+                </p>
+            </div>
+        </div>
+        <div class="row hidden-md hidden-lg">
+            <div class="col-xs-12 col-sm-12">
+                <p style="padding-top: 10px;">
+                    <img src="/static/images/ttk-logo.gif"/>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+
+                <h1>Уважаемый абонент!</h1>
+
+                <p class="lead">
+                    Для Вас снято ограничение скорости доступа в сеть Интернет. Испытайте
+                    возможности
+                    Интернета по полной
+                    с ТТК!
+                </p>
+
+                <p class="lead">
+                    <strong>До 31.10.2015 снятие ограничения скорости предоставляется бесплатно*.</strong>
+                </p>
+
+                <p class="lead">
+                    Выберите, продолжить использовать максимальную скорость, либо отказаться от такой возможности
+                </p>
+            </div>
+        </div>
+        <div class="row hidden-sm hidden-xs">
+            <div class="col-md-4 col-md-offset-2 col-lg-4 col-lg-offset-2 text-center">
+                <a href="{{ answer_url }}?user_id={{ user_id }}&code=1" class="btn btn-success btn-lg">
+                    Согласен
+                </a>
+            </div>
+            <div class="col-md-4 col-lg-4 text-center">
+                <a href="{{ answer_url }}?user_id={{ user_id }}&code=2" class="btn btn-danger btn-lg">
+                    Отказаться
+                </a>
+            </div>
+        </div>
+        <div class="row hidden-md hidden-lg">
+            <div class="col-xs-12 col-sm-12">
+                <p>
+                    <a href="{{ answer_url }}?user_id={{ user_id }}&code=1" class="btn btn-success btn-lg btn-block">
+                        Согласен
+                    </a>
+                    <a href="{{ answer_url }}?user_id={{ user_id }}&code=2" class="btn btn-danger btn-lg btn-block">
+                        Отказаться
+                    </a>
+                </p>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+                <p class="text-muted">
+                    *&nbsp;&nbsp;c 1 ноября 2015 года стоимость услуги &laquo;Максимальное ускорение&raquo; составит
+                    100&nbsp;р. ежемесячно
+                </p>
+            </div>
+        </div>
+        {% comment %}
+
+    <h1>Смена тарифного плана</h1>
+
+    <p>{{ ip_address }}</p>
+
+    <p>{{ user_id }}</p>
+
+    <p><a href="{{ answer_url }}?user_id={{ user_id }}&code=1">Да</a></p>
+
+    <p><a href="{{ answer_url }}?user_id={{ user_id }}&code=2">Нет</a></p>
+    {% endcomment %}
+{% endblock %}{# content #}
