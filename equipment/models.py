@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
+from django.core.cache import cache
 from equipment.isg_cache import IsgCache
 from isgtool.contrib import log
 
@@ -18,6 +19,18 @@ class BrasSession(models.Model):
     bras = models.ForeignKey('Bras')
 
 
+class BrasManager(models.Manager):
+    def get_by_ip(self, ip):
+        CACHE_KEY = '{ip}.ip-address-to-bras'
+        bras = cache.get(CACHE_KEY.format(ip=ip))
+        if bras:
+            return
+        else:
+            bras = self.get(ip_address=ip)
+            cache.set(CACHE_KEY.format(ip=ip), bras)
+            return bras
+
+
 class Bras(models.Model):
     name = models.CharField(max_length=255, verbose_name=u'Name')
     ip_address = models.CharField(max_length=15, verbose_name=u'IP Address')
@@ -28,6 +41,8 @@ class Bras(models.Model):
     command_prompt = models.CharField(max_length=255, verbose_name=u'Command Prompt')
     coa_secret = models.CharField(max_length=255, verbose_name=u'CoA Secret')
     coa_port = models.IntegerField(verbose_name=u'CoA Port')
+
+    objects = BrasManager()
 
     class Meta:
         ordering = ['name']
@@ -162,7 +177,8 @@ class CoaCommand(models.Model):
         cmd = 'radclient -x -t 1 -r 1 {ip}:{port} coa {secret}'.format(ip=bras.ip_address, port=bras.coa_port,
                                                                        secret=bras.coa_secret)
         if cache_obj.check_last_coa_aaa_id(uid, self, session_id):
-            logger.log(log_level, u'User \'{0}\' session ID {1} hasn\'t changed since last CoA. Avoid CoA'.format(uid, session_id))
+            logger.log(log_level,
+                       u'User \'{0}\' session ID {1} hasn\'t changed since last CoA. Avoid CoA'.format(uid, session_id))
             return True
         logger.log(log_level, u'Send CoA to \'{0}\''.format(bras.ip_address))
         p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stdin=subprocess.PIPE, shell=True)

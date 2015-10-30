@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'tv3%679(^dzg7k%ue0n()5b9!%joisc7_l&7!%6i@$wu0ddus*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*',]
 
@@ -150,16 +150,32 @@ LOGGING = {
     }
 }
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '127.0.0.1:11211',
-        'TIMEOUT': 300,
-        'OPTIONS': {
-            'MAX_ENTRIES': 1000000,
+try:
+    from isgtool.local_settings import *
+except ImportError:
+
+    ENABLE_ADMIN = True
+
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+            'LOCATION': '127.0.0.1:11211',
+            'TIMEOUT': 300,
+            'OPTIONS': {
+                'MAX_ENTRIES': 1000000,
+            }
         }
     }
-}
-
-PENDING_COA = True
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'notifier',
+            'USER': 'notifier',
+            'PASSWORD': 'notifier',
+            'HOST': 'localhost',
+            'PORT': '',
+        }
+    }
+    PENDING_COA = True
+    NOTIFICATION_URL='/sttk-notification/'
 

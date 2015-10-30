@@ -3,3 +3,4 @@
 **/migrations/
 *.pyc
 log/
+isgtool/local_settings.py

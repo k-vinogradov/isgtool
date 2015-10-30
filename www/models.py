@@ -5,6 +5,23 @@ from django.core.exceptions import ValidationError
 from django.conf import settings
 from equipment.models import CoaCommand, CoaQueue
 from isgtool.contrib import log
+from django.core.cache import cache
+
+IS_COMPLETED = '{uid}.is_completed'
+IS_UNCOMPLETED = '{uid}.is_uncompleted'
+
+
+class UserNotificationManager(models.Manager):
+    ACTIVE_KEY = 'active-notification'
+
+    def get_active(self):
+        active = cache.get(self.ACTIVE_KEY)
+        if active:
+            return True
+        else:
+            active = self.get(is_active=True)
+            cache.set(self.ACTIVE_KEY, True, None)
+            return active
 
 
 class UserNotification(models.Model):
@@ -15,6 +32,10 @@ class UserNotification(models.Model):
     successful_coa = models.ForeignKey(CoaCommand, verbose_name=u'Successful CoA',
                                        limit_choices_to={'is_active': True})
     is_active = models.BooleanField(default=False, verbose_name=u'Is Active')
+
+    objects = UserNotificationManager()
+
+    # TODO Override self.save(...) for active cache update
 
     class Meta:
         ordering = ('name',)
@@ -51,6 +72,24 @@ class UserNotification(models.Model):
             return u'Unknown code'
 
 
+class UserNotificationRecordManager(models.Manager):
+    def is_completed(self, uid):
+        if cache.get(IS_COMPLETED.format(uid=uid)):
+            return True
+        elif cache.get(IS_UNCOMPLETED.format(uid)):
+            return False
+        else:
+            if self.filter(completed=True, user_id=uid, notification=UserNotification.objects.get_active()).exists():
+                cache.set(IS_COMPLETED.format(uid=uid), True, None)
+                return True
+            else:
+                cache.set(IS_UNCOMPLETED.format(uid=uid), True, None)
+                return False
+
+    def status_cached(self, uid):
+        return cache.get(IS_COMPLETED.format(uid=uid)) or cache.get(IS_UNCOMPLETED.format(uid))
+
+
 class UserNotificationRecord(models.Model):
     notification = models.ForeignKey('UserNotification', verbose_name=u'Notification Template')
     user_id = models.CharField(max_length=255, verbose_name=u'User ID')
@@ -59,6 +98,8 @@ class UserNotificationRecord(models.Model):
     seen_datetime = models.DateTimeField(verbose_name=u'Seen', auto_now_add=True)
     complete_datetime = models.DateTimeField(verbose_name=u'Answered', blank=True, null=True)
     acknowledged = models.BooleanField(default=False, verbose_name=u'Ack')
+
+    objects = UserNotificationRecordManager()
 
     def display_answer(self):
         if self.completed:
@@ -71,6 +112,10 @@ class UserNotificationRecord(models.Model):
         if not self.id:
             logger.info(u'Notification (user ID {0}, notification \'{1}\') created.'.format(self.user_id,
                                                                                             self.notification.name))
+        if self.completed:
+            cache.set(IS_COMPLETED.format(uid=self.user_id), True, None)
+        else:
+            cache.set(IS_UNCOMPLETED.format(uid=self.user_id), True, None)
         if self.completed and not self.acknowledged:
             logger.info(u'Notification #{0} (user ID {1}, notification \'{2}\') completed.'.format(
                 self.id,
@@ -80,4 +125,5 @@ class UserNotificationRecord(models.Model):
                 CoaQueue.objects.create(coa=self.notification.successful_coa, user_id=self.user_id)
             else:
                 self.notification.successful_coa.run(self.user_id)
+            self.objects.filter(user_id=self.user_id).exclude(id=self.id).delete()
         return super(UserNotificationRecord, self).save(*args, **kwargs)

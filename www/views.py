@@ -43,7 +43,7 @@ class NotificationView(TemplateView):
         super(NotificationView, self).__init__()
         self.logger = log(self)
         try:
-            self.notification = UserNotification.objects.get(is_active=True)
+            self.notification = UserNotification.objects.get_active()
         except UserNotification.DoesNotExist:
             self.logger.critical(u'Active notification doesn\'t exist.')
             raise Http404
@@ -56,20 +56,12 @@ class NotificationView(TemplateView):
         cache = IsgCache()
         user_id = cache.get_user_id(self.request.META['REMOTE_ADDR'])
         if user_id:
-            if UserNotificationRecord.objects.filter(completed=False, user_id=user_id,
-                                                     notification=self.notification).count() > 1:
-                UserNotificationRecord.objects.filter(completed=False, user_id=user_id,
-                                                      notification=self.notification).delete()
-            record, created = UserNotificationRecord.objects.get_or_create(user_id=user_id,
-                                                                           notification=self.notification)
-            if record.completed:
+            if UserNotificationRecord.objects.is_completed(user_id):
                 self.logger.debug(u'Notification \'{0}\' for user ID \'{1}\' already has been completed'.format(
                     self.notification.name, user_id))
                 raise Http404
-            else:
-                if not created:
-                    record.seen = datetime.now()
-                    record.save()
+            if not UserNotificationRecord.objects.status_cached(user_id):
+                UserNotificationRecord.objects.get_or_create(user_id=user_id, notification=self.notification)
         else:
             self.logger.error(u'No cached session info with IP {0}'.format(self.request.META['REMOTE_ADDR']))
             raise Http404
@@ -83,7 +75,7 @@ class AnswerView(TemplateView):
         super(AnswerView, self).__init__()
         self.logger = log(self)
         try:
-            self.notification = UserNotification.objects.get(is_active=True)
+            self.notification = UserNotification.objects.get_active()
         except UserNotification.DoesNotExist:
             self.logger.critical(u'Active notification doesn\'t exist.')
             raise Http404
@@ -104,10 +96,10 @@ class AnswerView(TemplateView):
         else:
             code = None
         if user_id and code:
-            if UserNotificationRecord.objects.filter(completed=False, user_id=user_id,
-                                                     notification=self.notification).count() > 1:
-                UserNotificationRecord.objects.filter(completed=False, user_id=user_id,
-                                                      notification=self.notification).delete()
+            if UserNotificationRecord.objects.is_completed(user_id):
+                self.logger.debug(u'Notification \'{0}\' for user ID \'{1}\' already has been completed'.format(
+                    self.notification.name, user_id))
+                raise Http404
             record, created = UserNotificationRecord.objects.get_or_create(user_id=user_id,
                                                                            notification=self.notification)
             if not record.completed:
