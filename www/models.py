@@ -17,7 +17,7 @@ class UserNotificationManager(models.Manager):
     def get_active(self):
         active = cache.get(self.ACTIVE_KEY)
         if active:
-            return True
+            return active
         else:
             active = self.get(is_active=True)
             cache.set(self.ACTIVE_KEY, True, None)
