@@ -87,7 +87,7 @@ class UserNotificationRecordManager(models.Manager):
                 return False
 
     def status_cached(self, uid):
-        return cache.get(IS_COMPLETED.format(uid=uid)) or cache.get(IS_UNCOMPLETED.format(uid))
+        return cache.get(IS_COMPLETED.format(uid=uid)) or cache.get(IS_UNCOMPLETED.format(uid=uid))
 
 
 class UserNotificationRecord(models.Model):
