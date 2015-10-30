@@ -125,5 +125,5 @@ class UserNotificationRecord(models.Model):
                 CoaQueue.objects.create(coa=self.notification.successful_coa, user_id=self.user_id)
             else:
                 self.notification.successful_coa.run(self.user_id)
-            self.objects.filter(user_id=self.user_id).exclude(id=self.id).delete()
+            UserNotificationRecord.objects.filter(user_id=self.user_id).exclude(id=self.id).delete()
         return super(UserNotificationRecord, self).save(*args, **kwargs)
