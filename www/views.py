@@ -21,7 +21,7 @@ def handler404(request):
 
 
 def redirect(request):
-    return HttpResponseRedirect('http://80.240.47.53/sttk-notification/')
+    return HttpResponseRedirect(settings.NOTIFICATION_URL)
 
 
 class TemplatePreView(TemplateView):
