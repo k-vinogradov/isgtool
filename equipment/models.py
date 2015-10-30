@@ -20,14 +20,14 @@ class BrasSession(models.Model):
 
 
 class BrasManager(models.Manager):
-    def get_by_ip(self, ip):
-        CACHE_KEY = '{ip}.ip-address-to-bras'
-        bras = cache.get(CACHE_KEY.format(ip=ip))
+    def get_by_ip(self, bras_id):
+        cache_key = '{bras_id}.bras-bras_id-to-obj'
+        bras = cache.get(cache_key.format(id=bras_id))
         if bras:
             return
         else:
-            bras = self.get(ip_address=ip)
-            cache.set(CACHE_KEY.format(ip=ip), bras)
+            bras = self.get(id=bras_id)
+            cache.set(cache_key.format(id=bras_id), bras)
             return bras
 
 

@@ -177,5 +177,8 @@ except ImportError:
         }
     }
     PENDING_COA = True
-    NOTIFICATION_URL='/sttk-notification/'
+    if ENABLE_ADMIN:
+        NOTIFICATION_URL = '/admin/'
+    else:
+        NOTIFICATION_URL='/sttk-notification/'
 
