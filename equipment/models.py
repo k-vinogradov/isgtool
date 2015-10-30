@@ -20,11 +20,11 @@ class BrasSession(models.Model):
 
 
 class BrasManager(models.Manager):
-    def get_by_ip(self, bras_id):
+    def get_by_id(self, bras_id):
         cache_key = '{bras_id}.bras-bras_id-to-obj'
         bras = cache.get(cache_key.format(bras_id=bras_id))
         if bras:
-            return
+            return bras
         else:
             bras = self.get(id=bras_id)
             cache.set(cache_key.format(bras_id=bras_id), bras)

@@ -28,6 +28,7 @@ class Command(BaseCommand):
                             help='Limit uid list size')
 
     def handle(self, *args, **options):
+
         logger = log(self)
         logger.info(u'Run CoA-commands job.')
         user_ids = []
@@ -74,8 +75,8 @@ class Command(BaseCommand):
             offline = 0
             already_ran = 0
             wait = False
+            process_block = False
             for uid in user_ids:
-                counter += 1
                 if len(block) == BLOCK_SIZE or counter == len(user_ids):
 
                     if wait:
@@ -103,6 +104,9 @@ class Command(BaseCommand):
                     cache.unlock_pending_coa()
 
                     block = []
+                    process_block = False
+
+                counter += 1
 
                 session_info = cache.get_session_info(uid)
                 if not session_info:
@@ -116,6 +120,31 @@ class Command(BaseCommand):
                     continue
 
                 block.append(uid)
+                process_block = True
+
+            if process_block:
+                if wait:
+                    logger.info(u'Waite the next block.')
+                    sleep(BLOCK_DELAY)
+
+                logger.info(
+                    u'Processing next block which contains {0} uid(s). Counter: {1} of {2}.'.format(len(block),
+                                                                                                    counter,
+                                                                                                    len(user_ids)))
+
+                if cache.get_pending_coa():
+                    logger.info(u'Waite pending coa unlocking.')
+                while cache.get_pending_coa():
+                    sleep(0.1)
+
+                cache.lock_pending_coa()
+                for uid2 in block:
+                    sleep(0.05)
+                    if coa.run(uid2, log_level='debug'):
+                        success += 1
+                    else:
+                        failed += 1
+                cache.unlock_pending_coa()
 
             logger.info(
                 u'CoA command(s) executed: offline: {offline}, skipped: {skipped}, '

@@ -58,7 +58,7 @@ class IsgCache:
         session_info = self._cache.get_many([user_id + BRAS_POSTFIX, user_id + SESSION_POSTFIX])
         if session_info:
             try:
-                bras = Bras.objects.get_by_ip(session_info[user_id + BRAS_POSTFIX])
+                bras = Bras.objects.get_by_id(session_info[user_id + BRAS_POSTFIX])
             except Bras.DoesNotExist:
                 logger = logging.getLogger(__name__)
                 logger.error(u'Bras ID \'{0}\' doesn\'t exist'.format(session_info[user_id + BRAS_POSTFIX]))
