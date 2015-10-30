@@ -76,7 +76,7 @@ class UserNotificationRecordManager(models.Manager):
     def is_completed(self, uid):
         if cache.get(IS_COMPLETED.format(uid=uid)):
             return True
-        elif cache.get(IS_UNCOMPLETED.format(uid)):
+        elif cache.get(IS_UNCOMPLETED.format(uid=uid)):
             return False
         else:
             if self.filter(completed=True, user_id=uid, notification=UserNotification.objects.get_active()).exists():
