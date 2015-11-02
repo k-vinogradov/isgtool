@@ -113,9 +113,9 @@ class UserNotificationRecord(models.Model):
             logger.info(u'Notification (user ID {0}, notification \'{1}\') created.'.format(self.user_id,
                                                                                             self.notification.name))
         if self.completed:
-            cache.set(IS_COMPLETED.format(uid=self.user_id), True, None)
+            cache.set(IS_COMPLETED.format(uid=self.user_id), True)
         else:
-            cache.set(IS_UNCOMPLETED.format(uid=self.user_id), True, None)
+            cache.set(IS_UNCOMPLETED.format(uid=self.user_id), True)
         if self.completed and not self.acknowledged:
             logger.info(u'Notification #{0} (user ID {1}, notification \'{2}\') completed.'.format(
                 self.id,

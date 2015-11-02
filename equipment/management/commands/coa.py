@@ -55,7 +55,7 @@ class Command(BaseCommand):
                 return None
             user_ids = map(lambda s: s.strip(), user_ids)
         if options['limit'] > 0:
-            user_ids = user_ids[0:options['limit'] - 1]
+            user_ids = user_ids[0:options['limit']]
         if len(user_ids) == 0:
             logger.error(u'No user IDs was sent.')
             return None
