@@ -100,9 +100,6 @@ class AnswerView(TemplateView):
                 self.logger.debug(u'Notification \'{0}\' for user ID \'{1}\' already has been completed'.format(
                     self.notification.name, user_id))
                 raise Http404
-            if UserNotificationRecord.objects.filter(user_id=user_id, notification=self.notification).count() > 1:
-                UserNotificationRecord.objects.filter(user_id=user_id, notification=self.notification,
-                                                      completed=True).delete()
             record, created = UserNotificationRecord.objects.get_or_create(user_id=user_id,
                                                                            notification=self.notification)
             if not record.completed:
