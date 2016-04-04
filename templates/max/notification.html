@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row hidden-sm hidden-xs">
+            <div class="col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+                <p class="text-center" style="padding-top: 30px;">
+                    <img src="/static/images/ttk-jet.gif"/>
+                </p>
+            </div>
+        </div>
+        <div class="row hidden-md hidden-lg">
+            <div class="col-xs-12 col-sm-12">
+                <p style="padding-top: 10px;">
+                    <img src="/static/images/ttk-logo.gif"/>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+
+                <h1>Уважаемый абонент!</h1>
+
+                <p class="lead">Компания ТТК предлагает дополнительную услугу <strong>«Максимальная скорость»</strong>.
+                    Вы можете увеличить скорость доступа к сети Интернет до 100 мбит/сек всего за 100 рублей в месяц
+                    дополнительно к действующему тарифному плану.</p>
+
+                <p class="lead"><strong>Оцени преимущества беспредельных скоростей - качай фильмы, обменивайся файлами,
+                    работай
+                    в облачных ресурсах, летая в сети.</strong></p>
+
+                <p class="lead">Выберите подключить "Максимальную скорость" или отказаться от услуги.</p>
+
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="wideScreenModal" tabindex="-1" role="dialog" aria-labelledby="wideScreenModal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form method="get" action="{{ answer_url }}" id="user_form">
+                        <input type="hidden" name="rid" value="{{ rid }}">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">Уважаемый абонент!</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p></p>Пожалуйста, ознакомьтесь с условиями предоставления услуги "Максимальная
+                            скорость":</p>
+                            <ol>
+                                <li>Услуга "Максимальная скорость" подключается в течение 3х рабочих дней с момента
+                                    активации.
+                                </li>
+                                <li>Ежемесячная абонентская плата за предоставление услуги составит 100 руб./мес. (с
+                                    НДС)
+                                    дополнительно к действующему тарифному плану.
+                                </li>
+                                <li>При активации услуги позднее 1 числа календарного месяца, списание денежных средств
+                                    будет производиться пропорционально оставшимся дням до конца месяца.
+                                </li>
+                                <li>Отключить услугу можно по телефону 8-800-775-0-775, отправив заявку на email:
+                                    sales@sibir.ttk.ru или в любом из офисов продаж и обслуживания компании ТТК.
+                                </li>
+                            </ol>
+                            <p>Чтобы подключить услугу, пожалуйста, заполните поле номер телефона и email для обратной
+                                связи
+                                .</p>
+
+                            <div class="form-group" id="phone_group">
+                                <label class="control-label" for="phone">
+                                    Телефон
+                                    <sup><span class="glyphicon glyphicon-asterisk text-danger"
+                                               aria-hidden="true"></span></sup>
+                                </label>
+                                <input type="text" class="form-control" id="phone" placeholder="Номер телефона"
+                                       name="phone">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="email">Электронная почта</label>
+                                <input type="email" class="form-control" id="email"
+                                       placeholder="Адрес электронной почты" name="email">
+                            </div>
+
+                        </div>
+                        <div class="modal-footer" style="text-align: center">
+                            <button type="submit" class="btn btn-success">Подключить</button>
+                            <a href="{{ answer_url }}?rid={{ rid }}&answer=No" class="btn btn-danger">
+                                Отказаться
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="row hidden-sm hidden-xs">
+            <div class="col-md-4 col-md-offset-2 col-lg-4 col-lg-offset-2 ">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#wideScreenModal">
+                    Подключить
+                </button>
+            </div>
+            <div class="col-md-4 col-lg-4 text-center">
+                <a href="{{ answer_url }}?rid={{ rid }}&answer=No" class="btn btn-danger btn-lg">
+                    Отказаться
+                </a>
+            </div>
+        </div>
+        <div class="row hidden-md hidden-lg">
+            <div class="col-xs-12 col-sm-12">
+                <p>
+                    <button type="button" class="btn btn-success btn-lg btn-block" data-toggle="modal"
+                            data-target="#wideScreenModal">
+                        Подключить
+                    </button>
+                    <a href="{{ answer_url }}?rid={{ rid }}&answer=No" class="btn btn-danger btn-lg btn-block">
+                        Отказаться
+                    </a>
+                </p>
+            </div>
+        </div>
+        <hr>
+    </div>
+{% endblock %}{# content #}
+
+{% block script %}
+    <script>
+        $("#user_form").submit(function (event) {
+            if ($("#phone").val() == "") {
+                $("#phone_group").addClass("has-error")
+                event.preventDefault();
+            }
+        });
+    </script>
+{% endblock %}

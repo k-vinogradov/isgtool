@@ -15,7 +15,6 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
@@ -25,8 +24,7 @@ SECRET_KEY = 'tv3%679(^dzg7k%ue0n()5b9!%joisc7_l&7!%6i@$wu0ddus*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*',]
-
+ALLOWED_HOSTS = ['*', ]
 
 # Application definition
 
@@ -38,7 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'www',
-    'equipment',
+    'isg',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -73,26 +71,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'isgtool.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-
-DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    # },
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'notifier',
-        'USER': 'notifier',
-        'PASSWORD': 'notifier',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
-}
-
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
@@ -105,7 +83,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
@@ -134,21 +111,10 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
         },
-        'file': {
-            'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': BASE_DIR + '/log/isgtool.log',
-            'formatter': 'verbose',
-        },
     },
-    'loggers': {
-        '': {
-            'handlers': ['console', 'file'],
-            'propagate': True,
-            'level': 'INFO',
-        },
-    }
 }
+
+DEBUG_UID = 'test-kras'
 
 try:
     from isgtool.local_settings import *
@@ -168,17 +134,15 @@ except ImportError:
     }
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'notifier',
-            'USER': 'notifier',
-            'PASSWORD': 'notifier',
-            'HOST': 'localhost',
-            'PORT': '',
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': 'db.sqlite',
         }
     }
     PENDING_COA = True
-    if ENABLE_ADMIN:
-        NOTIFICATION_URL = '/admin/'
-    else:
-        NOTIFICATION_URL='/sttk-notification/'
+    LOGGING['loggers'] = {'': {
+        'handlers': ['console',],
+        'propagate': True,
+        'level': 'DEBUG',
+    }}
+
 

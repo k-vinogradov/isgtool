@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from django.core.management.base import BaseCommand
-from equipment.models import Bras
+from isg.models import Bras
 from isgtool.contrib import log
 
 
 class Command(BaseCommand):
-    help = 'Update AAA sessions list'
+    help = 'Update AAA sessions info'
 
     def handle(self, *args, **options):
         logger = log(self)

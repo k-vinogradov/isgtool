@@ -17,13 +17,10 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from www.views import *
 
-if settings.ENABLE_ADMIN:
-    urlpatterns = [
-        url(r'^admin/', include(admin.site.urls)),
-        url(r'^template-preview/', TemplatePreView.as_view(), name='template_preview'),
-    ]
-else:
-    urlpatterns = []
+urlpatterns = [
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^template-preview/', TemplatePreView.as_view(), name='template_preview'),
+]
 
 urlpatterns += [
     url(r'^sttk-notification/', NotificationView.as_view(), name='notification_view'),
