@@ -90,30 +90,6 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR + '/static/'
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format': '%(asctime)s %(name)-35s %(levelname)-10s   %(message)s'
-        },
-        'simple': {
-            'format': '[%(asctime)s] %(message)s'
-        },
-    },
-    'handlers': {
-        'null': {
-            'level': 'DEBUG',
-            'class': 'logging.NullHandler',
-        },
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-            'formatter': 'simple'
-        },
-    },
-}
-
 DEBUG_UID = 'test-kras'
 
 try:
@@ -139,10 +115,33 @@ except ImportError:
         }
     }
     PENDING_COA = True
-    LOGGING['loggers'] = {'': {
-        'handlers': ['console',],
-        'propagate': True,
-        'level': 'DEBUG',
-    }}
 
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'formatters': {
+            'verbose': {
+                'format': '%(asctime)s %(name)-35s %(levelname)-10s   %(message)s'
+            },
+            'simple': {
+                'format': '[%(asctime)s] %(message)s'
+            },
+        },
+        'handlers': {
+            'null': {
+                'level': 'DEBUG',
+                'class': 'logging.NullHandler',
+            },
+            'console': {
+                'level': 'DEBUG',
+                'class': 'logging.StreamHandler',
+                'formatter': 'simple'
+            },
+        },
+        'loggers': {'': {
+            'handlers': ['console', ],
+            'propagate': True,
+            'level': 'DEBUG',
+        }}
 
+    }
