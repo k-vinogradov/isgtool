@@ -20,8 +20,6 @@ SCREEN_TEMPLATE = '''
 
                       CACHE STATS
  -------------------------------------------------------
-  BRAS                        Last Cache Update
- -------------------------------------------------------
 {bras}
 
   Total items cached: {mi}
@@ -57,7 +55,7 @@ class Command(BaseCommand):
     def screen(self):
         bras_stats = ''
         for bras in Bras.objects.active():
-            bras_stats += ' {0}: {1} sessions were cached at {2}'.format(bras.name, bras.last_update_sessions(),
+            bras_stats += ' {0}: {1} sessions were cached at {2}\n'.format(bras.name, bras.last_update_sessions(),
                                                                          bras.last_update_datetime())
         current_time = time()
         delta = current_time - self.previos_time
