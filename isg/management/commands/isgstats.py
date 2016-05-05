@@ -88,6 +88,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         stats = cache_stats()
         stats['coa_counter'] = coa_counter()
+        stats['coa_queue'] = CoaQueue.objects.all().count()
 
         if options['zenoss']:
             formatted_stats = 'OK | ' + ' '.join(['{0}={1}'.format(key, stats[key]) for key in stats])
