@@ -34,7 +34,7 @@ def redirect(request):
     if 'sib.transtk.ru' in request.get_host():
         url = '/admin/'
     else:
-        url = '/sttk-notification/'
+        url = 'http://notifier.sibttk.net/sttk-notification/'
     return HttpResponseRedirect(url)
 
 
