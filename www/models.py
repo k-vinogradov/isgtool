@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from datetime import datetime
 from django.core.cache import cache
 from django.db import models
 from django.core.exceptions import ValidationError
@@ -101,6 +102,7 @@ class UserNotificationRecord(models.Model):
             logger.info(u'Notification #{0} UID{1} is completed.'.format(self.id, self.uid))
         self.json_result = result
         self.is_completed = True
+        self.completed = datetime.now()
         self.save()
         CoaQueue.objects.create(coa=self.notification.successful_coa, uid=self.uid)
 
