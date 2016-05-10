@@ -17,116 +17,170 @@
         </div>
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
-
-                <h1>Уважаемый абонент!</h1>
-
-                <p class="lead">Компания ТТК предлагает дополнительную услугу <strong>«Максимальная скорость»</strong>.
-                    Вы можете увеличить скорость доступа к сети Интернет до 100 мбит/сек всего за 100 рублей в месяц
-                    дополнительно к действующему тарифному плану.</p>
-
-                <p class="lead"><strong>Оцени преимущества беспредельных скоростей - качай фильмы, обменивайся файлами,
-                    работай
-                    в облачных ресурсах, летая в сети.</strong></p>
-
-                <p class="lead">Выберите подключить "Максимальную скорость" или отказаться от услуги.</p>
-
-            </div>
-        </div>
-        <!-- Modal -->
-        <div class="modal fade" id="wideScreenModal" tabindex="-1" role="dialog" aria-labelledby="wideScreenModal">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <form method="get" action="{{ answer_url }}" id="user_form">
-                        <input type="hidden" name="rid" value="{{ rid }}">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                    aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Уважаемый абонент!</h4>
-                        </div>
-                        <div class="modal-body">
-                            <p></p>Пожалуйста, ознакомьтесь с условиями предоставления услуги "Максимальная
-                            скорость":</p>
-                            <ol>
-                                <li>Услуга "Максимальная скорость" подключается в течение 3х рабочих дней с момента
-                                    активации.
-                                </li>
-                                <li>Ежемесячная абонентская плата за предоставление услуги составит 100 руб./мес. (с
-                                    НДС)
-                                    дополнительно к действующему тарифному плану.
-                                </li>
-                                <li>При активации услуги позднее 1 числа календарного месяца, списание денежных средств
-                                    будет производиться пропорционально оставшимся дням до конца месяца.
-                                </li>
-                                <li>Отключить услугу можно по телефону 8-800-775-0-775, отправив заявку на email:
-                                    sales@sibir.ttk.ru или в любом из офисов продаж и обслуживания компании ТТК.
-                                </li>
-                            </ol>
-                            <p>Чтобы подключить услугу, пожалуйста, заполните поле номер телефона и email для обратной
-                                связи
-                                .</p>
-
-                            <div class="form-group" id="phone_group">
-                                <label class="control-label" for="phone">
-                                    Телефон
-                                    <sup><span class="glyphicon glyphicon-asterisk text-danger"
-                                               aria-hidden="true"></span></sup>
-                                </label>
-                                <input type="text" class="form-control" id="phone" placeholder="Номер телефона"
-                                       name="phone">
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label" for="email">Электронная почта</label>
-                                <input type="email" class="form-control" id="email"
-                                       placeholder="Адрес электронной почты" name="email">
-                            </div>
-
-                        </div>
-                        <div class="modal-footer" style="text-align: center">
-                            <button type="submit" class="btn btn-success">Подключить</button>
-                            <a href="{{ answer_url }}?rid={{ rid }}&answer=No" class="btn btn-danger">
-                                Отказаться
-                            </a>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <div class="row hidden-sm hidden-xs">
-            <div class="col-md-4 col-md-offset-2 col-lg-4 col-lg-offset-2 ">
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#wideScreenModal">
-                    Подключить
-                </button>
-            </div>
-            <div class="col-md-4 col-lg-4 text-center">
-                <a href="{{ answer_url }}?rid={{ rid }}&answer=No" class="btn btn-danger btn-lg">
-                    Отказаться
-                </a>
-            </div>
-        </div>
-        <div class="row hidden-md hidden-lg">
-            <div class="col-xs-12 col-sm-12">
-                <p>
-                    <button type="button" class="btn btn-success btn-lg btn-block" data-toggle="modal"
-                            data-target="#wideScreenModal">
-                        Подключить
-                    </button>
-                    <a href="{{ answer_url }}?rid={{ rid }}&answer=No" class="btn btn-danger btn-lg btn-block">
-                        Отказаться
-                    </a>
-                </p>
+                <h1>Здравствуйте!</h1>
+                <p class="lead">Спасибо, что Вы с нами! Пожалуйста, помогите нам стать еще лучше для Вас.</p>
+                <form method="get" action="{{ answer_url }}" id="user_form">
+                    <input type="hidden" name="rid" value="{{ rid }}">
+                    <input type="hidden" name="ignored" value="No">
+                    <div class="form-group" id="group_1">
+                        <label class="control-label" for="1">Пожалуйста, оцените, насколько вы в целом
+                            удовлетворены процессом подключения услуги Интернет.</label>
+                        <select class="form-control" name="question1" id="1" aria-describedby="msg_1">
+                            <option value="-1">&nbsp;</option>
+                            <option value="0">Затрудняюсь с ответом</option>
+                            <option value="5">Гораздо лучше, чем ожидал</option>
+                            <option value="4">Лучше, чем ожидал</option>
+                            <option value="3">Меня устраивает</option>
+                            <option value="2">Хуже, чем ожидал</option>
+                            <option value="1">Намного хуже, чем ожидал</option>
+                        </select>
+                        <span id="msg_1" class="help-block" hidden="True">Поле обязательно для заполнения</span>
+                    </div>
+                    <div class="form-group" id="group_2">
+                        <label class="control-label" for="2">Оцените по пятибалльной шкале, на сколько быстро Вам
+                            подключили Интернет с момента обращения и до окончания работ.</label>
+                        <select class="form-control" name="question2" id="2" aria-describedby="msg_2">
+                            <option value="-1">&nbsp;</option>
+                            <option value="0">Затрудняюсь с ответом</option>
+                            <option value="5">Намного быстрее, чем ожидал</option>
+                            <option value="4">Быстрее, чем ожидал</option>
+                            <option value="3">Меня устраивает</option>
+                            <option value="2">Медленнее, чем ожидал</option>
+                            <option value="1">Намного медленнее, чем ожидал</option>
+                        </select>
+                        <span id="msg_2" class="help-block">Поле обязательно для заполнения</span>
+                    </div>
+                    <div class="form-group collapse" id="group_2_1">
+                        <label class="control-label" for="2.1">Прокомментируйте, пожалуйста, вашу оценку. Что не
+                            понравилось?</label>
+                        <input type="text" class="form-control" id="2.1" name="question2.1">
+                    </div>
+                    <div class="form-group" id="group_3" aria-describedby="msg_3">
+                        <label class="control-label" for="3">Пожалуйста, оцените работу инженера, выполнявшего работы по
+                            подключению Интернет, его вежливость и компетентность.</label>
+                        <select class="form-control" name="question3" id="3">
+                            <option value="-1">&nbsp;</option>
+                            <option value="0">Затрудняюсь с ответом</option>
+                            <option value="5">Гораздо лучше, чем ожидал</option>
+                            <option value="4">Лучше, чем ожидал</option>
+                            <option value="3">Меня устраивает</option>
+                            <option value="2">Хуже, чем ожидал</option>
+                            <option value="1">Намного хуже, чем ожидал</option>
+                        </select>
+                        <span id="msg_3" class="help-block">Поле обязательно для заполнения</span>
+                    </div>
+                    <div class="form-group collapse" id="group_3_1">
+                        <label class="control-label" for="3.1">Прокомментируйте, пожалуйста, вашу оценку. Что не
+                            понравилось?</label>
+                        <input type="text" class="form-control" id="3.1" name="question3.1">
+                    </div>
+                    <div class="form-group" id="group_4">
+                        <label class="control-label" for="4">Оцените, пожалуйста, качество работы услуги Интернет после
+                            подключения.</label>
+                        <select class="form-control" name="question4" id="4" aria-describedby="msg_4">
+                            <option value="-1">&nbsp;</option>
+                            <option value="0">Затрудняюсь с ответом</option>
+                            <option value="5">Гораздо лучше, чем ожидал</option>
+                            <option value="4">Лучше, чем ожидал</option>
+                            <option value="3">Меня устраивает</option>
+                            <option value="2">Хуже, чем ожидал</option>
+                            <option value="1">Намного хуже, чем ожидал</option>
+                        </select>
+                        <span id="msg_4" class="help-block">Поле обязательно для заполнения</span>
+                    </div>
+                    <div class="form-group collapse" id="group_4_1">
+                        <label class="control-label" for="4.1">Прокомментируйте, пожалуйста, вашу оценку. Что не
+                            понравилось?</label>
+                        <input type="text" class="form-control" id="4.1" name="question4.1">
+                    </div>
+                    <div class="form-group" id="group_5">
+                        <label class="control-label" for="5">Что еще Вы хотели бы сообщить в адрес Компании?</label>
+                        <input type="text" class="form-control" id="5" name="question5">
+                    </div>
+                    <div class="text-center hidden-sm hidden-xs">
+                        <button type="submit" class="btn btn-success btn-lg">Отправить</button>
+                        <a href="{{ answer_url }}?rid={{ rid }}&ignored=Yes" class="btn btn-danger btn-lg">
+                            Отказаться
+                        </a>
+                    </div>
+                    <div class="text-center hidden-md hidden-lg">
+                        <button type="submit" class="btn btn-success btn-lg btn-block">Отправить</button>
+                        <a href="{{ answer_url }}?rid={{ rid }}&ignored=Yes" class="btn btn-danger btn-lg  btn-block">
+                            Отказаться
+                        </a>
+                    </div>
+                </form>
             </div>
         </div>
         <hr>
+        <div class="row hidden-sm hidden-xs">
+            <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+                <p class="text-muted"><a href="http://ttk.ru/rus/krasnoyarsk/customers/">ЗАО "СибТрансТелеКом"</a></p>
+                <p class="text-muted">660028, Красноярск, ул. Телевизорная, 1, а/я 320<br/>
+                    тел.: (391) 256-05-01, 248-00-84, факс: (391) 248-00-85 </p>
+                <p class="text-muted">e-mail: <a href="mailto:office@sib.transtk.ru">office@sib.transtk.ru</a></p>
+            </div>
+        </div>
+        <div class="row hidden-md hidden-lg">
+            <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+                <p class="text-muted"><a href="http://ttk.ru/rus/krasnoyarsk/customers/">ЗАО "СибТрансТелеКом"</a></p>
+                <p class="text-muted">660028, Россия, Красноярск,<br/>
+                    ул. Телевизорная, 1, а/я 320<br/>
+                    тел.: (391) 256-05-01, 248-00-84,<br/>
+                    факс: (391) 248-00-85 </p>
+                <p class="text-muted">e-mail: <a href="mailto:office@sib.transtk.ru">office@sib.transtk.ru</a></p>
+            </div>
+        </div>
+
     </div>
-{% endblock %}{# content #}
+{% endblock %}
 
 {% block script %}
     <script>
+        function show_add(id) {
+            var val, strId, groupId;
+            strId = "#" + id;
+            groupId = "#group_" + id + "_1";
+            val = $(strId).val();
+            if (val == "1" || val == "2") {
+                $(groupId).show()
+            } else {
+                $(groupId).hide()
+            }
+        }
+
+        var msgId;
+        for (i = 1; i < 5; i++) {
+            msgId = "#msg_" + i;
+            $(msgId).hide();
+        }
+
+        $("#2").change(function () {
+            show_add("2")
+        });
+        $("#3").change(function () {
+            show_add("3")
+        });
+        $("#4").change(function () {
+            show_add("4")
+        });
+
         $("#user_form").submit(function (event) {
-            if ($("#phone").val() == "") {
-                $("#phone_group").addClass("has-error")
+            var eventDefault, id, groupId, msgId;
+            eventDefault = true;
+            for (i = 1; i < 5; i++) {
+                id = "#" + i;
+                groupId = "#group_" + i;
+                msgId = "#msg_" + i;
+                if ($(id).val() == "-1") {
+                    $(groupId).addClass("has-error");
+                    eventDefault = false;
+                    $(msgId).show()
+                } else {
+                    $(msgId).hide()
+                }
+            }
+            if (!eventDefault) {
                 event.preventDefault();
             }
         });

@@ -118,6 +118,6 @@ class UserNotificationRecord(models.Model):
     def display_answer(self):
         if self.json_result:
             result = loads(self.json_result)
-            return ', \n'.join(['{0}: {1}'.format(key, result[key]) for key in result])
+            return u', \n'.join([u'{0}: {1}'.format(key, result[key]) for key in result])
         else:
             return '-'
