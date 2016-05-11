@@ -44,7 +44,7 @@ class UserNotificationRecordAdmin(admin.ModelAdmin):
         queryset.update(is_excluded=True)
 
     def deactivate_records(self, request, queryset):
-        queryset.update(is_active=True)
+        queryset.update(is_active=False)
 
     def include_records(self, request, queryset):
         queryset.update(is_excluded=False)
