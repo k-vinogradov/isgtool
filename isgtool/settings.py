@@ -98,6 +98,10 @@ except ImportError:
 
     ENABLE_ADMIN = True
 
+    COA_BLOCK_SIZE = 50
+    COA_BLOCK_DELAY = 50
+    COA_MESSAGE_INTERVAL = 2
+
     CACHES = {
         'default': {
             'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',

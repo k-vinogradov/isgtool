@@ -6,11 +6,7 @@ from isg.libcache import lock_coa, unlock_coa, coa_is_locked
 from isgtool.contrib import log
 from time import sleep
 from www.models import UserNotificationRecord
-
-BLOCK_SIZE = 50
-BLOCK_DELAY = 10
-MESSAGE_DELAY = 1
-
+from django.conf import settings
 
 class Command(BaseCommand):
     help = 'Send CoA for service activation'
@@ -36,17 +32,17 @@ class Command(BaseCommand):
         lock_coa()
         for record in qs:
 
-            if counter > 0 and counter % BLOCK_SIZE == 0:
+            if counter > 0 and counter % settings.COA_BLOCK_SIZE == 0:
                 unlock_coa()
                 logger.info('Records are refreshed: {}. Waiting for the next block...'.format(counter))
-                sleep(BLOCK_DELAY)
+                sleep(settings.COA_BLOCK_DELAY)
                 logger.info('Waiting for CoA is unlocked...')
                 while coa_is_locked():
                     sleep(0.2)
                 lock_coa()
 
             return_code = record.notification.coa.run(record.uid)
-            sleep(MESSAGE_DELAY)
+            sleep(settings.COA_MESSAGE_INTERVAL)
             if return_code is None:
                 skipped += 1
             elif return_code == 0:
