@@ -20,7 +20,7 @@ class UserNotificationRecordAdmin(admin.ModelAdmin):
         'uid',
         'notification',
         'is_active',
-        'is_excluded'
+        'is_excluded',
         'is_completed',
         'completed',)
     list_display_links = ('uid',)
