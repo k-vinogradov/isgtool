@@ -24,7 +24,7 @@ class UserNotificationRecordAdmin(admin.ModelAdmin):
         'is_completed',
         'completed',)
     list_display_links = ('uid',)
-    list_filter = ('notification', 'is_active', 'is_excluded' 'is_completed', 'completed', 'is_acknowledged')
+    list_filter = ('notification', 'is_active', 'is_excluded', 'is_completed', 'completed', 'is_acknowledged')
     search_fields = ('uid',)
     date_hierarchy = 'completed'
     save_on_top = True
