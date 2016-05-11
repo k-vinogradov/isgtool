@@ -155,7 +155,7 @@ class CoaCommand(models.Model):
         bras = Bras.objects.get(ip_address=bid)
 
         message = self.message.format(user_id=uid, aaa_session_id=sid)
-        cmd = 'radclient -x -t 1 -r 1 {bid}:{port} coa {secret}'.format(bid=bid, port=bras.coa_port,
+        cmd = 'radclient -x -t 3 -r 1 {bid}:{port} coa {secret}'.format(bid=bid, port=bras.coa_port,
                                                                         secret=bras.coa_secret)
         if get_last_coa_sid(self.id, uid) == sid:
             logger.log(log_level,
