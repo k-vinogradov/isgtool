@@ -31,10 +31,23 @@ class UserNotificationRecordAdmin(admin.ModelAdmin):
     fields = ['notification', 'uid', 'is_acknowledged', 'is_active', 'is_excluded', 'is_completed', 'refreshed',
               'completed', 'display_answer', ]
     readonly_fields = ['is_completed', 'refreshed', 'completed', 'display_answer']
-    actions = ['acknowledge_records', 'export_to_excel']
+    actions = ['activate_records', 'deactivate_records', 'include_records', 'exclude_records', 'acknowledge_records',
+               'export_to_excel']
 
-    def acknowledge_records(modeladmin, request, queryset):
+    def acknowledge_records(self, request, queryset):
         queryset.update(acknowledged='p')
+
+    def activate_records(self, request, queryset):
+        queryset.update(is_active=True)
+
+    def exclude_records(self, request, queryset):
+        queryset.update(is_excluded=True)
+
+    def deactivate_records(self, request, queryset):
+        queryset.update(is_active=True)
+
+    def include_records(self, request, queryset):
+        queryset.update(is_excluded=False)
 
     def export_to_excel(self, request, queryset):
         column_keys = ['datetime', 'notification', 'uid']
@@ -89,3 +102,7 @@ class UserNotificationRecordAdmin(admin.ModelAdmin):
 
     acknowledge_records.short_description = u'Acknowledge records'
     export_to_excel.short_description = u'Export to *.xlsx'
+    include_records.short_description = u'Add records to the notification'
+    exclude_records.short_description = u'Exclude records from the notification'
+    activate_records.short_description = u'Activate records'
+    deactivate_records.short_description = u'Deactivate records'
