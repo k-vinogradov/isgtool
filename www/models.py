@@ -67,7 +67,7 @@ class UserNotificationRecordManager(models.Manager):
         if record:
             return record
         else:
-            record = self.get(uid=uid, notification=notification)
+            record = self.get_active().get(uid=uid)
             record.update_cache()
             return record
 
@@ -77,9 +77,12 @@ class UserNotificationRecordManager(models.Manager):
         if record:
             return record
         else:
-            record = self.get(id=id)
+            record = self.get_active().get(id=id)
             record.update_cache()
             return record
+
+    def get_active(self):
+        return self.filter(is_active=True, is_excluded=False)
 
 
 class UserNotificationRecord(models.Model):
@@ -90,6 +93,8 @@ class UserNotificationRecord(models.Model):
     json_result = models.TextField(verbose_name=u'JSON Result', blank=True, null=True)
     is_completed = models.BooleanField(default=False, verbose_name=u'Completed')
     is_acknowledged = models.BooleanField(default=False, verbose_name=u'Ack')
+    is_active = models.BooleanField(default=False, verbose_name=u'Is active')
+    is_excluded = models.BooleanField(default=False, verbose_name=u'Exclude from notification')
 
     objects = UserNotificationRecordManager()
 

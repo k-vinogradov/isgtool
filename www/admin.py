@@ -19,14 +19,17 @@ class UserNotificationRecordAdmin(admin.ModelAdmin):
         'is_acknowledged',
         'uid',
         'notification',
+        'is_active',
+        'is_excluded'
         'is_completed',
         'completed',)
     list_display_links = ('uid',)
-    list_filter = ('notification', 'is_completed', 'completed', 'is_acknowledged')
+    list_filter = ('notification', 'is_active', 'is_excluded' 'is_completed', 'completed', 'is_acknowledged')
     search_fields = ('uid',)
     date_hierarchy = 'completed'
     save_on_top = True
-    fields = ['notification', 'uid', 'is_completed', 'is_acknowledged', 'refreshed', 'completed', 'display_answer', ]
+    fields = ['notification', 'uid', 'is_acknowledged', 'is_active', 'is_excluded', 'is_completed', 'refreshed',
+              'completed', 'display_answer', ]
     readonly_fields = ['is_completed', 'refreshed', 'completed', 'display_answer']
     actions = ['acknowledge_records', 'export_to_excel']
 
@@ -67,7 +70,6 @@ class UserNotificationRecordAdmin(admin.ModelAdmin):
                 'border': 1,
                 'text_wrap': True,
                 'valign': 'top'})
-        text_wrap = workbook.add_format(properties={'text_wrap': True, 'valign': 'top'})
         worksheet = workbook.add_worksheet(u'Records')
         worksheet.write_row(0, 0, [column_formats[key]['title'] for key in column_keys], header_format)
         index = 0

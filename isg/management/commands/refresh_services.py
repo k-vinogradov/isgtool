@@ -25,7 +25,7 @@ class Command(BaseCommand):
         skipped = 0
         failed = 0
 
-        qs = UserNotificationRecord.objects.filter(is_completed=False)
+        qs = UserNotificationRecord.objects.get_active().filter(is_completed=False)
         if options['limit'] > 0:
             qs = qs[:options['limit']]
 
