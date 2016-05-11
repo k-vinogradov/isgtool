@@ -7,8 +7,9 @@ from isgtool.contrib import log
 from time import sleep
 from www.models import UserNotificationRecord
 
-BLOCK_SIZE = 500
+BLOCK_SIZE = 40
 BLOCK_DELAY = 10
+MESSAGE_DELAY = 0.5
 
 
 class Command(BaseCommand):
@@ -45,6 +46,7 @@ class Command(BaseCommand):
                 lock_coa()
 
             return_code = record.notification.coa.run(record.uid)
+            sleep(MESSAGE_DELAY)
             if return_code is None:
                 skipped += 1
             elif return_code == 0:
