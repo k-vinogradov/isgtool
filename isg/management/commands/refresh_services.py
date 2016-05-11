@@ -7,9 +7,9 @@ from isgtool.contrib import log
 from time import sleep
 from www.models import UserNotificationRecord
 
-BLOCK_SIZE = 40
+BLOCK_SIZE = 50
 BLOCK_DELAY = 10
-MESSAGE_DELAY = 0.5
+MESSAGE_DELAY = 1
 
 
 class Command(BaseCommand):
