@@ -42,7 +42,6 @@ class Command(BaseCommand):
                 lock_coa()
 
             return_code = record.notification.coa.run(record.uid)
-            sleep(settings.COA_MESSAGE_INTERVAL)
             if return_code is None:
                 skipped += 1
             elif return_code == 0:
@@ -52,5 +51,6 @@ class Command(BaseCommand):
                 counter += 1
                 record.refreshed = datetime.now()
                 record.save()
+                sleep(settings.COA_MESSAGE_INTERVAL)
         unlock_coa()
         logger.info('Services refresh finished')
