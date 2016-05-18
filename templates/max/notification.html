@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="container">
+        {# --------- Wide Screen Header --------- #}
         <div class="row hidden-sm hidden-xs">
             <div class="col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
                 <p class="text-center" style="padding-top: 30px;">
@@ -8,6 +9,7 @@
                 </p>
             </div>
         </div>
+        {# --------- Small Screen Header --------- #}
         <div class="row hidden-md hidden-lg">
             <div class="col-xs-12 col-sm-12">
                 <p style="padding-top: 10px;">
@@ -34,7 +36,7 @@
                             <option value="2">Хуже, чем ожидал</option>
                             <option value="1">Намного хуже, чем ожидал</option>
                         </select>
-                        <span id="msg_1" class="help-block" hidden="True">Поле обязательно для заполнения</span>
+                        <span id="msg_1" class="help-block collapse">Поле обязательно для заполнения</span>
                     </div>
                     <div class="form-group" id="group_2">
                         <label class="control-label" for="2">Оцените по пятибалльной шкале, на сколько быстро Вам
@@ -48,7 +50,7 @@
                             <option value="2">Медленнее, чем ожидал</option>
                             <option value="1">Намного медленнее, чем ожидал</option>
                         </select>
-                        <span id="msg_2" class="help-block">Поле обязательно для заполнения</span>
+                        <span id="msg_2" class="help-block collapse">Поле обязательно для заполнения</span>
                     </div>
                     <div class="form-group collapse" id="group_2_1">
                         <label class="control-label" for="2.1">Прокомментируйте, пожалуйста, вашу оценку. Что не
@@ -67,7 +69,7 @@
                             <option value="2">Хуже, чем ожидал</option>
                             <option value="1">Намного хуже, чем ожидал</option>
                         </select>
-                        <span id="msg_3" class="help-block">Поле обязательно для заполнения</span>
+                        <span id="msg_3" class="help-block collapse">Поле обязательно для заполнения</span>
                     </div>
                     <div class="form-group collapse" id="group_3_1">
                         <label class="control-label" for="3.1">Прокомментируйте, пожалуйста, вашу оценку. Что не
@@ -86,7 +88,7 @@
                             <option value="2">Хуже, чем ожидал</option>
                             <option value="1">Намного хуже, чем ожидал</option>
                         </select>
-                        <span id="msg_4" class="help-block">Поле обязательно для заполнения</span>
+                        <span id="msg_4" class="help-block collapse">Поле обязательно для заполнения</span>
                     </div>
                     <div class="form-group collapse" id="group_4_1">
                         <label class="control-label" for="4.1">Прокомментируйте, пожалуйста, вашу оценку. Что не
@@ -105,15 +107,17 @@
                         <label class="control-label" for="5">Что еще Вы хотели бы сообщить в адрес Компании?</label>
                         <input type="text" class="form-control" id="5" name="question5">
                     </div>
+                    {# --------- Wide Screen Form Buttons --------- #}
                     <div class="text-center hidden-sm hidden-xs">
-                        <button type="submit" class="btn btn-success btn-lg">Отправить</button>
-                        <a href="{{ answer_url }}?rid={{ rid }}&ignored=Yes" class="btn btn-danger btn-lg">
+                        <button type="submit" class="btn btn-danger btn-lg">Отправить</button>
+                        <a href="{{ answer_url }}?rid={{ rid }}&ignored=Yes" class="btn btn-lg">
                             Отказаться
                         </a>
                     </div>
+                    {# --------- Small Screen Form Buttons --------- #}
                     <div class="text-center hidden-md hidden-lg">
-                        <button type="submit" class="btn btn-success btn-lg btn-block">Отправить</button>
-                        <a href="{{ answer_url }}?rid={{ rid }}&ignored=Yes" class="btn btn-danger btn-lg  btn-block">
+                        <button type="submit" class="btn btn-danger btn-lg btn-block">Отправить</button>
+                        <a href="{{ answer_url }}?rid={{ rid }}&ignored=Yes" class="btn btn-lg btn-block">
                             Отказаться
                         </a>
                     </div>
@@ -121,6 +125,7 @@
             </div>
         </div>
         <hr>
+        {# --------- Wide Screen Footer --------- #}
         <div class="row hidden-sm hidden-xs">
             <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
                 <p class="text-muted"><a href="http://ttk.ru/rus/krasnoyarsk/customers/">ЗАО "СибТрансТелеКом"</a></p>
@@ -129,6 +134,7 @@
                 <p class="text-muted">e-mail: <a href="mailto:office@sib.transtk.ru">office@sib.transtk.ru</a></p>
             </div>
         </div>
+        {# --------- Small Screen Footer --------- #}
         <div class="row hidden-md hidden-lg">
             <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
                 <p class="text-muted"><a href="http://ttk.ru/rus/krasnoyarsk/customers/">ЗАО "СибТрансТелеКом"</a></p>
@@ -157,12 +163,12 @@
             }
         }
 
-        var msgId;
+        {% comment %}var msgId;
 
         for (i = 1; i < 5; i++) {
             msgId = "#msg_" + i;
             $(msgId).hide();
-        }
+        }{% endcomment %}
 
         $("#2").change(function () {
             show_add("2")

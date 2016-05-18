@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
     <div class="container">
+        {# --------- Wide Screen Header --------- #}
         <div class="row hidden-sm hidden-xs">
             <div class="col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
                 <p class="text-center" style="padding-top: 30px;">
@@ -8,6 +9,7 @@
                 </p>
             </div>
         </div>
+        {# --------- Small Screen Header --------- #}
         <div class="row hidden-md hidden-lg">
             <div class="col-xs-12 col-sm-12">
                 <p style="padding-top: 10px;">
@@ -31,11 +33,33 @@
                 {% endif %}
                 {% if code == '1' %}
                     <p class="lead">
-                        <strong>&laquo;Максимальное ускорение&raquo; будет активировано для Вас в течении суток.</strong>
+                        <strong>&laquo;Максимальное ускорение&raquo; будет активировано для Вас в течении
+                            суток.</strong>
                     </p>
                 {% elif code == '2' %}
 
                 {% endif %}
+            </div>
+        </div>
+        <hr>
+        {# --------- Wide Screen Footer --------- #}
+        <div class="row hidden-sm hidden-xs">
+            <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+                <p class="text-muted"><a href="http://ttk.ru/rus/krasnoyarsk/customers/">ЗАО "СибТрансТелеКом"</a></p>
+                <p class="text-muted">660028, Красноярск, ул. Телевизорная, 1, а/я 320<br/>
+                    тел.: (391) 256-05-01, 248-00-84, факс: (391) 248-00-85 </p>
+                <p class="text-muted">e-mail: <a href="mailto:office@sib.transtk.ru">office@sib.transtk.ru</a></p>
+            </div>
+        </div>
+        {# --------- Small Screen Footer --------- #}
+        <div class="row hidden-md hidden-lg">
+            <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+                <p class="text-muted"><a href="http://ttk.ru/rus/krasnoyarsk/customers/">ЗАО "СибТрансТелеКом"</a></p>
+                <p class="text-muted">660028, Россия, Красноярск,<br/>
+                    ул. Телевизорная, 1, а/я 320<br/>
+                    тел.: (391) 256-05-01, 248-00-84,<br/>
+                    факс: (391) 248-00-85 </p>
+                <p class="text-muted">e-mail: <a href="mailto:office@sib.transtk.ru">office@sib.transtk.ru</a></p>
             </div>
         </div>
     </div>
